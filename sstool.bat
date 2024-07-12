@@ -21,6 +21,8 @@ echo [2] Mouse detector
 echo [3] Sus Files
 echo [4] ProcessHacker
 echo [5] Recycled Bin
+echo [6] Date verifier
+
 
 echo.
 set /p options=[+] Option: 
@@ -30,6 +32,7 @@ if %options% == 2 goto :Mousedetector
 if %options% == 3 goto :susfiles
 if %options% == 4 goto :ProcessHacker
 if %options% == 5 goto :RecycledBin
+if %options% == 6 goto :dateverifier
 
 
 :Prefetch
@@ -244,5 +247,16 @@ goto :Main
 cls
 echo Last Recycled Bin:
 forfiles /P C:\$Recycle.Bin /C "cmd /c echo @fdate @ftime"
+pause > nul
+goto :Main
+
+
+:dateverifier
+cls
+set /p filepath= [+] Chemin du fichier: 
+echo Modification - Creation - Derniere execution
+powershell -Command "(Get-Item '%FilePath%').LastWriteTime"
+powershell -Command "(Get-Item '%FilePath%').CreationTime"
+powershell -Command "(Get-Item '%FilePath%').LastAccessTime"
 pause > nul
 goto :Main
